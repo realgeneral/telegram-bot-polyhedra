@@ -2,10 +2,9 @@ from moralis import evm_api
 from web3 import Web3
 
 from app.logs import logging as logger
-from config.addresses import nft_addresses, rpcs, chain_ids, stargate_ids
-from config.addresses import nft_addresses, bridge_addresses, scanners
-
-API_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub25jZSI6IjkyNTIzNGQ3LTZlYjctNDFiNi1iNjQ1LTk2NmVmNTM1MjdlOSIsIm9yZ0lkIjoiMzQ3NzA3IiwidXNlcklkIjoiMzU3NDA5IiwidHlwZUlkIjoiYjI1MTA1MDMtZDk1Ni00ZDZhLTg3NTgtNTcyYWIwNTcyNDM0IiwidHlwZSI6IlBST0pFQ1QiLCJpYXQiOjE2ODkwNjcxMjYsImV4cCI6NDg0NDgyNzEyNn0.sSSjEiOJ1WXTLoQSh8bRUoYRDdLtXJpq4TWkoadod2c"
+from app.utils.adresses import nft_addresses, bridge_addresses
+from app.utils.chains import chain_ids, stargate_ids
+from app.utils.extra import rpcs, scanners
 
 
 class Bridger:
@@ -25,10 +24,10 @@ class Bridger:
         self.nft_name = nft_name
 
     @staticmethod
-    def get_id(from_chain, nft_name, nft_address, wallet_address):
+    def get_id(key_api, from_chain, nft_name, nft_address, wallet_address):
         if from_chain != 'core' and from_chain != 'celo':
             try:
-                api_key = API_KEY
+                api_key = key_api
                 params = {
                     "chain": from_chain,
                     "format": "decimal",
@@ -45,11 +44,11 @@ class Bridger:
             except Exception as err:
                 err_str = str(err)
                 if "list index out of range" in err_str:
-                    logger.error(f'{nft_name} - not found')
-                    raise ValueError(f'{nft_name} - not found')
+                    logger.error(f'{wallet_address}:{from_chain} - nft not found')
+                    raise ValueError("nft not found")
                 else:
                     logger.error(f'{wallet_address}:{from_chain} - {err}')
-                    raise ValueError(f'{nft_name} - not found')
+                    raise ValueError(f'{wallet_address}:{from_chain} - {err}')
         elif from_chain == 'core':
             web3 = Web3(Web3.HTTPProvider(rpcs["core"]))
             contract = web3.eth.contract(address=nft_address, abi=Bridger.nft_abi)
@@ -57,10 +56,10 @@ class Bridger:
             if balance > 0:
                 totalSupply = contract.functions.totalSupply().call()
                 id = contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 5000, totalSupply).call()[0]
+                logger.info(f'{wallet_address}:{from_chain.upper()} - успешно найдена {nft_name} {id}')
                 return id
             else:
-                logger.error(f'{nft_name} - not found')
-                raise ValueError(f'{nft_name} - not found')
+                raise ValueError("nft not found")
         elif from_chain == 'celo':
             web3 = Web3(Web3.HTTPProvider(rpcs["celo"]))
             contract = web3.eth.contract(address=nft_address, abi=Bridger.nft_abi)
@@ -68,9 +67,10 @@ class Bridger:
             if balance > 0:
                 totalSupply = contract.functions.totalSupply().call()
                 id = contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 10000, totalSupply).call()[0]
+                logger.info(f'{wallet_address}:{from_chain.upper()} - успешно найдена {nft_name} {id}')
                 return id
             else:
-                raise ValueError(f'{nft_name} - not found')
+                raise ValueError("nft not found")
 
     def bridge(self):
         web3 = Web3(Web3.HTTPProvider(self.rpc_from))
@@ -85,6 +85,7 @@ class Bridger:
             id = Bridger.get_id(self.chain_from, self.nft_name, self.nft_address, wallet_address)
 
             # approve
+
             approve_tx = nft_contract.functions.approve(
                 Web3.to_checksum_address(self.bridge_address), id).build_transaction({
                 'from': wallet_address,
@@ -96,18 +97,19 @@ class Bridger:
             raw_approve_tx_hash = web3.eth.send_raw_transaction(signed_approve_tx.rawTransaction)
             approve_tx_hash = web3.to_hex(raw_approve_tx_hash)
 
+            logger.info(f"Хеш транзакции аппрува: {approve_tx_hash}")
+
             approve_tx_receipt = web3.eth.wait_for_transaction_receipt(raw_approve_tx_hash, timeout=300)
 
             if approve_tx_receipt.status == 1:
                 pass
             else:
-                logger.error("Произошла ошибка при аппруве."
-                             f" Транзакция: {scanners[self.chain_from]}/tx/{approve_tx_hash}\n")
+                logger.error("Произошла ошибка при аппруве")
+                return -6
 
             # bridge
             bridge_contract = web3.eth.contract(
-                address=Web3.to_checksum_address(self.bridge_address),
-                abi=Bridger.celo_bridge_abi if self.chain_from == "celo" else Bridger.bridge_abi)
+                address=Web3.to_checksum_address(self.bridge_address), abi=Bridger.celo_bridge_abi if self.chain_from == "celo" else Bridger.bridge_abi )
 
             if self.chain_from == 'celo':
                 chain_to_id = stargate_ids[self.chain_to]
@@ -119,8 +121,7 @@ class Bridger:
 
                 tx = bridge_contract.functions.transferNFT(
                     Web3.to_checksum_address(self.nft_address), id,
-                    chain_to_id, wallet_address, str.encode(
-                        "0x00010000000000000000000000000000000000000000000000000000000000061a80")).build_transaction({
+                    chain_to_id, wallet_address, str.encode("0x00010000000000000000000000000000000000000000000000000000000000061a80")).build_transaction({
                     'from': wallet_address,
                     'value': lzfee,
                     'gas': bridge_contract.functions.transferNFT(
@@ -132,6 +133,10 @@ class Bridger:
                     'nonce': web3.eth.get_transaction_count(wallet_address),
                     'gasPrice': web3.eth.gas_price
                 })
+
+                logger.info(f"txGasprice: {tx['gasPrice']}")
+
+
             else:
                 chain_to_id = chain_ids[self.chain_to]
                 fee = bridge_contract.functions.fee(chain_to_id).call()
@@ -157,18 +162,22 @@ class Bridger:
             bridge_tx_receipt = web3.eth.wait_for_transaction_receipt(raw_tx_hash, timeout=300)
 
             if bridge_tx_receipt.status == 1:
-                return bridge_tx_hash
+                return [self.chain_from, bridge_tx_hash]
             else:
-                logger.error(f"Произошла ошибка. Бридж {self.nft_name}. Транзакция: {scanners[self.chain_from]}/tx/{bridge_tx_hash}")
+                logger.error("Произошла ошибка")
+                return -6
 
-        except Exception as err_:
-            err_str = str(err_)
-            if "not founDDDD" in err_str:
-                logger.error(f"{wallet_address}:{self.chain_from.upper()} - {self.nft_name} не найдена в кошельке")
-            elif "intrinsic gas too low" in err_str or "insufficient funds for gas" in err_str:
-                logger.error(f"{wallet_address}:{self.chain_from.upper()} - не хватает средств на газ  ( {err_} )")
-            elif "execution reverted" in err_str:
-                logger.error(
-                    f"{wallet_address}:{self.chain_from.upper()} - что-то пошло не так (execution reverted), попробуйте ещё раз")
-            else:
-                logger.error(f"{wallet_address}:{self.chain_from.upper()} - {err_}")
+        except Exception as err:
+                err_str = str(err)
+                if "not founDDDD" in err_str:
+                    logger.error(f"{wallet_address}:{self.chain_from.upper()} - {self.nft_name} не найдена в кошельке")
+                    return -3
+                elif "intrinsic gas too low" in err_str or "insufficient funds for gas" in err_str:
+                    logger.error(f"{wallet_address}:{self.chain_from.upper()} - не хватает средств на газ  ( {err} )")
+                    return -2
+                elif "execution reverted" in err_str:
+                    logger.error(f"{wallet_address}:{self.chain_from.upper()} - что-то пошло не так (execution reverted), попробуйте ещё раз")
+                    return -4
+                else:
+                    logger.error(f"{wallet_address}:{self.chain_from.upper()} - {err}")
+                    return -6
