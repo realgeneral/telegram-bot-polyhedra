@@ -4,6 +4,7 @@ from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher import FSMContext
 
 from app.create_bot import dp, bot
+from app.states import UserFollowing
 
 
 @dp.message_handler(commands=['start'])
@@ -13,6 +14,7 @@ async def start_cmd(message: types.Message):
     ]
     reply_markup = ReplyKeyboardMarkup(keyboard=[buttons], resize_keyboard=True)
 
+    await UserFollowing.start_navigation.set()
     await message.answer("Приветствую вас в <b>Polyhedra Automatization</b> ! 🤖👋 \n\n"
                          ""
                          "Бот выполняент:\n\n"
