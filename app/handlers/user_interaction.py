@@ -40,3 +40,12 @@ async def start_cmd(message: types.Message):
                          ' - Также необходим газ в opBNB </i>',
                          parse_mode=types.ParseMode.HTML,
                          reply_markup=reply_markup)
+
+
+@dp.message_handler(Text(equals="🚀 Начать"), state=UserFollowing.start_navigation)
+async def request_wallets(message: types.Message):
+    await UserFollowing.ask_wallet.set()
+    await message.answer("👝 *Отправьте свой кошелек* \n"
+                         "(если вы хотите отправить несколько кошельков, то разделите кошельки построчно)",
+                         parse_mode=types.ParseMode.MARKDOWN,
+                         reply_markup=ReplyKeyboardRemove())
