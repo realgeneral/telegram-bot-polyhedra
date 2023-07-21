@@ -8,4 +8,8 @@ class UserFollowing(StatesGroup):
     claim_all = State()
     send_API = State()
     send_statistics = State()
+    new_private = State()
+    new_api = State()
+    get_api_keys = State()
+    choose_point = State()
 
