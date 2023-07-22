@@ -1,5 +1,3 @@
-import asyncio
-
 from aiogram import types
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.dispatcher.filters import Text
@@ -22,19 +20,18 @@ async def claim_all(message: types.Message, state: FSMContext):
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Отправляю сообщение ...")
 
-    is_sending = Messager.messsage(private_key)
+    is_sending = await Messager.messsage(private_key)
     if is_sending == -2:
         is_sending = "❌ Не хватает газа"
     elif is_sending == -6:
         is_sending = "❌ Произошла ошибка"
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Начинаю mint nft 0/8")
 
     greenfield_minter = Minter(private_key, 'bsc', 'Greenfield Testnet')
-    is_gr_mint = greenfield_minter.mint()
+    is_gr_mint = await greenfield_minter.mint()
     if is_gr_mint == -2:
         is_gr_mint = "❌ Не хватает газа"
     elif is_gr_mint == -5:
@@ -42,13 +39,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_gr_mint == -6:
         is_gr_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(6)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 1/8")
 
     zklight_minter = Minter(private_key, 'bsc', 'ZkLightClient')
-    is_zklight_mint = zklight_minter.mint()
+    is_zklight_mint = await zklight_minter.mint()
     if is_zklight_mint == -2:
         is_zklight_mint = "❌ Не хватает газа"
     elif is_zklight_mint == -5:
@@ -56,13 +52,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_zklight_mint == -6:
         is_zklight_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(4)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 2/8")
 
     opbnb_minter = Minter(private_key, 'bsc', 'ZkBridge on opBNB')
-    is_opbnb_mint = opbnb_minter.mint()
+    is_opbnb_mint = await opbnb_minter.mint()
     if is_opbnb_mint == -2:
         is_opbnb_mint = "❌ Не хватает газа"
     elif is_opbnb_mint == -5:
@@ -70,13 +65,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_opbnb_mint == -6:
         is_opbnb_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 3/8")
 
     mainnetalpha_minter = Minter(private_key, 'core', 'Mainnet Alpha')
-    is_main_mint = mainnetalpha_minter.mint()
+    is_main_mint = await mainnetalpha_minter.mint()
     if is_main_mint == -2:
         is_main_mint = "❌ Не хватает газа"
     elif is_main_mint == -5:
@@ -84,13 +78,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_main_mint == -6:
         is_main_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(3)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 4/8")
 
     pandra_bnb_minter = Minter(private_key, 'bsc', 'Pandra')
-    is_pandra_bnb_mint = pandra_bnb_minter.mint()
+    is_pandra_bnb_mint = await pandra_bnb_minter.mint()
     if is_pandra_bnb_mint == -2:
         is_pandra_bnb_mint = "❌ Не хватает газа"
     elif is_pandra_bnb_mint == -5:
@@ -98,13 +91,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_bnb_mint == -6:
         is_pandra_bnb_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 5/8")
 
     pandra_pol_minter = Minter(private_key, 'polygon', 'Pandra')
-    is_pandra_pol_mint = pandra_pol_minter.mint()
+    is_pandra_pol_mint = await pandra_pol_minter.mint()
     if is_pandra_pol_mint == -2:
         is_pandra_pol_mint = "❌ Не хватает газа"
     elif is_pandra_pol_mint == -5:
@@ -112,13 +104,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_pol_mint == -6:
         is_pandra_pol_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(7)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 6/8")
 
     pandra_core_minter = Minter(private_key, 'core', 'Pandra')
-    is_pandra_core_mint = pandra_core_minter.mint()
+    is_pandra_core_mint = await pandra_core_minter.mint()
     if is_pandra_core_mint == -2:
         is_pandra_core_mint = "❌ Не хватает газа"
     elif is_pandra_core_mint == -5:
@@ -126,13 +117,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_core_mint == -6:
         is_pandra_core_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 7/8")
 
     pandra_celo_minter = Minter(private_key, 'celo', 'Pandra')
-    is_pandra_celo_mint = pandra_celo_minter.mint()
+    is_pandra_celo_mint = await pandra_celo_minter.mint()
     if is_pandra_celo_mint == -2:
         is_pandra_celo_mint = "❌ Не хватает газа"
     elif is_pandra_celo_mint == -5:
@@ -140,13 +130,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_celo_mint == -6:
         is_pandra_celo_mint = "❌ Произошла ошибка"
 
-    await asyncio.sleep(4)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ mint nft 8/8. Приступаю к бриджу nft 0/7")
 
     zklight_bridger = Bridger(private_key, 'ZkLightClient', 'bsc', 'opbnb')
-    is_zklight_bridge = zklight_bridger.bridge(api_key)
+    is_zklight_bridge = await zklight_bridger.bridge(api_key)
     if is_zklight_bridge == -2:
         is_zklight_bridge = ["❌ Не хватает газа", ""]
     elif is_zklight_bridge == -3:
@@ -156,13 +145,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_zklight_bridge == -6:
         is_zklight_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(6)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 1/7")
 
     opbnb_bridger = Bridger(private_key, 'ZkBridge on opBNB', 'bsc', 'opbnb')
-    is_opbnb_bridge = opbnb_bridger.bridge(api_key)
+    is_opbnb_bridge = await opbnb_bridger.bridge(api_key)
     if is_opbnb_bridge == -2:
         is_opbnb_bridge = ["❌ Не хватает газа", ""]
     elif is_opbnb_bridge == -3:
@@ -172,13 +160,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_opbnb_bridge == -6:
         is_opbnb_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 2/7")
 
     core_bridger = Bridger(private_key, 'Mainnet Alpha', 'core', 'polygon')
-    is_core_bridge = core_bridger.bridge(api_key)
+    is_core_bridge = await core_bridger.bridge(api_key)
     if is_core_bridge == -2:
         is_core_bridge = ["❌ Не хватает газа", ""]
     elif is_core_bridge == -3:
@@ -188,13 +175,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_core_bridge == -6:
         is_core_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(6)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 3/7")
 
     pandra_bsc_bridger = Bridger(private_key, 'Pandra', 'bsc', 'core')
-    is_pandra_bsc_bridge = pandra_bsc_bridger.bridge(api_key)
+    is_pandra_bsc_bridge = await pandra_bsc_bridger.bridge(api_key)
     if is_pandra_bsc_bridge == -2:
         is_pandra_bsc_bridge = ["❌ Не хватает газа", ""]
     elif is_pandra_bsc_bridge == -3:
@@ -204,13 +190,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_bsc_bridge == -6:
         is_pandra_bsc_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 4/7")
 
     pandra_polygon_bridger = Bridger(private_key, 'Pandra', 'polygon', 'bsc')
-    is_pandra_pol_bridge = pandra_polygon_bridger.bridge(api_key)
+    is_pandra_pol_bridge = await pandra_polygon_bridger.bridge(api_key)
     if is_pandra_pol_bridge == -2:
         is_pandra_pol_bridge = ["❌ Не хватает газа", ""]
     elif is_pandra_pol_bridge == -3:
@@ -220,13 +205,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_pol_bridge == -6:
         is_pandra_pol_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(7)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 5/7")
 
     pandra_core_bridger = Bridger(private_key, 'Pandra', 'core', 'polygon')
-    is_pandra_core_bridge = pandra_core_bridger.bridge(api_key)
+    is_pandra_core_bridge = await pandra_core_bridger.bridge(api_key)
     if is_pandra_core_bridge == -2:
         is_pandra_core_bridge = ["❌ Не хватает газа", ""]
     elif is_pandra_core_bridge == -3:
@@ -236,13 +220,12 @@ async def claim_all(message: types.Message, state: FSMContext):
     elif is_pandra_core_bridge == -6:
         is_pandra_core_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(3)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 6/7")
 
     pandra_celo_bridger = Bridger(private_key, 'Pandra', 'celo', 'bsc')
-    is_pandra_celo_bridge = pandra_celo_bridger.bridge(api_key)
+    is_pandra_celo_bridge = await pandra_celo_bridger.bridge(api_key)
     if is_pandra_celo_bridge == -2:
         is_pandra_celo_bridge = ["❌ Не хватает газа", ""]
     elif is_pandra_celo_bridge == -3:
@@ -274,14 +257,14 @@ async def claim_all(message: types.Message, state: FSMContext):
                          f"  🔘 <i> Pandra on Core</i> {is_pandra_core_mint} \n"
                          f"  🔘 <i> Pandra on Celo</i> {is_pandra_celo_mint} \n\n"
                          "<u> 2. Кроссчейн nft сендер (Blockchain:Transaction Hash)</u> \n"
-                         f'  🔘 <i> ZkLightClient nft </i> {is_zklight_bridge[0]}{is_zklight_bridge[1]} \n'
-                         f'  🔘 <i> ZkBridge on opBNB nft </i> {is_opbnb_bridge[0]}{is_opbnb_bridge[1]} \n'
-                         f'  🔘 <i> Mainnet Alpha nft </i> {is_core_bridge[0]}{is_core_bridge[1]} \n'
-                         f'  🔘 <i> CodeConqueror (Pandra) nft </i> {is_pandra_bsc_bridge[0]}{is_pandra_bsc_bridge[1]}\n'
-                         f'  🔘 <i> PixelProwler (Pandra) nft </i> {is_pandra_pol_bridge[0]}{is_pandra_pol_bridge[1]} \n' 
-                         f'  🔘 <i> MelodyMaven (Pandra) nft </i> {is_pandra_core_bridge[0]}{is_pandra_core_bridge[1]}\n'
-                         f'  🔘 <i> EcoGuardian (Pandra) nft </i> {is_pandra_celo_bridge[0]}{is_pandra_celo_bridge[1]}\n\n'
-                         '<u> 3. Отправка сообщений (zkMessenger): </u> \n'
+                         f'  🔘 <i> ZkLightClient nft </i> {is_zklight_bridge[0]}<code>{is_zklight_bridge[1]}</code> \n'
+                         f'  🔘 <i> ZkBridge on opBNB nft </i> {is_opbnb_bridge[0]}<code>{is_opbnb_bridge[1]}</code> \n'
+                         f'  🔘 <i> Mainnet Alpha nft </i> {is_core_bridge[0]}<code>{is_core_bridge[1]}</code> \n'
+                         f'  🔘 <i> CodeConqueror (Pandra) nft </i> {is_pandra_bsc_bridge[0]}<code>{is_pandra_bsc_bridge[1]}</code>\n'
+                         f'  🔘 <i> PixelProwler (Pandra) nft </i> {is_pandra_pol_bridge[0]}<code>{is_pandra_pol_bridge[1]}</code> \n'
+                         f'  🔘 <i> MelodyMaven (Pandra) nft </i> {is_pandra_core_bridge[0]}<code>{is_pandra_core_bridge[1]}</code>\n'
+                         f'  🔘 <i> EcoGuardian (Pandra) nft </i> {is_pandra_celo_bridge[0]}<code>{is_pandra_celo_bridge[1]}</code>\n\n'
+                         '<u> 3. Отправка сообщения (zkMessenger): </u> \n'
                          f'  🔘 <i> из BSC в Polygon </i> {is_sending} \n\n',
                          parse_mode=types.ParseMode.HTML,
                          reply_markup=reply_markup)
