@@ -1,4 +1,3 @@
-
 from aiogram import types
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.dispatcher.filters import Text
@@ -15,7 +14,6 @@ async def claim_mint(message: types.Message, state: FSMContext):
 
     data = await state.get_data()
     private_key = data.get("private_key")
-    api_key = data.get("api_key")
 
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
@@ -120,7 +118,6 @@ async def claim_mint(message: types.Message, state: FSMContext):
         is_pandra_celo_mint = "❌ Claimed already"
     elif is_pandra_celo_mint == -6:
         is_pandra_celo_mint = "❌ Произошла ошибка"
-
 
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
