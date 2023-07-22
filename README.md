@@ -2,28 +2,28 @@
  
 <br />
 
-## Бот выполняент:
+## Бот выполняет:
 
 
  1. #### Минт nft:
 
-  *   Greenfield Testnet  (на BNB Chain) 
-  *  ZkLightClient  (на BNB Chain) 
-  *  ZkBridge on opBNB  (на BNB Chain) 
-  *  Mainnet Alpha  (на Core) 
-  *  Pandra  (на BNB Chain, Polygon, Core, Celo) 
+  *  _Greenfield Testnet_  (на BNB Chain) 
+  *  _ZkLightClient_  (на BNB Chain) 
+  *  _ZkBridge on opBNB_  (на BNB Chain) 
+  *  _Mainnet Alpha_  (на Core) 
+  *  _Pandra_  (на BNB Chain, Polygon, Core, Celo) 
 
  2. #### Кроссчейн nft сендер (zknft):  
-  *  ZkLightClient nft  из BSC в opBNB 
-  *  ZkBridge on opBNB nft  из BSC в opBNB 
-  *  Mainnet Alpha nft  из Core в Polygon 
-  *  CodeConqueror (Pandra) nft  из BSC в Core 
-  *  PixelProwler (Pandra) nft  из Polygon в BSC 
-  *  MelodyMaven (Pandra) nft  из Core в Polygon 
-  *  EcoGuardian (Pandra) nft  из Celo в BSC 
+  *  _ZkLightClient nft_  из BSC в opBNB 
+  *  _ZkBridge on opBNB nft_  из BSC в opBNB 
+  *  _Mainnet Alpha nft_  из Core в Polygon 
+  *  _CodeConqueror (Pandra)_ nft  из BSC в Core 
+  *  _PixelProwler (Pandra) nft_  из Polygon в BSC 
+  *  _MelodyMaven (Pandra) nft_  из Core в Polygon 
+  *  _EcoGuardian (Pandra) nft_  из Celo в BSC 
 
  3. #### Отправка сообщения (zkMessenger):  
-  *  из BSC в Polygon  
+  *  _из BSC в Polygon_  
 
 #### Замечания
  - Чтобы сминтить в сети Core необходимо раскинуть по кошелькам немного core 
