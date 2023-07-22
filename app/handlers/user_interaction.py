@@ -7,6 +7,11 @@ from app.create_bot import dp, bot
 from app.states import UserFollowing
 
 
+@dp.message_handler(commands=['restart'], state='*')
+async def restart_cmd(message: types.Message):
+    await start_cmd(message)
+
+
 @dp.message_handler(commands=['start'])
 async def start_cmd(message: types.Message):
     buttons = [
