@@ -24,7 +24,7 @@ async def start_cmd(message: types.Message):
                          ""
                          "Бот выполняент:\n\n"
                          ""
-                         "<u> 1. Минт nft (loyalty): </u> \n"
+                         "<u> 1. Минт nft: </u> \n"
                          "  🔘 <i> Greenfield Testnet </i> (на BNB Chain) \n"
                          "  🔘 <i> ZkLightClient </i> (на BNB Chain) \n"
                          "  🔘 <i> ZkBridge on opBNB </i> (на BNB Chain) \n"
