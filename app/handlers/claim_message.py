@@ -14,7 +14,6 @@ async def claim_message(message: types.Message, state: FSMContext):
 
     data = await state.get_data()
     private_key = data.get("private_key")
-    api_key = data.get("api_key")
 
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
@@ -34,7 +33,7 @@ async def claim_message(message: types.Message, state: FSMContext):
                                        resize_keyboard=True)
     await UserFollowing.wallet_menu.set()
     await message.answer("📊 <b>Статистика</b> \n\n"
-                         '<u>Отправка сообщений (zkMessenger): </u> \n'
-                         f'  🔘 <i> из BSC в <code>Polygon</code> </i> {is_sending} \n\n',
+                         '<u>Отправка сообщения (zkMessenger): </u> \n'
+                         f'  🔘 <i> из BSC в Polygon </i> {is_sending} \n\n',
                          parse_mode=types.ParseMode.HTML,
                          reply_markup=reply_markup)
