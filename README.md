@@ -1,16 +1,35 @@
-# telegram-bot-polyhedra
+# <h1 align="center"> Telegram bot Polyhedra</h1>
  
 <br />
 
-## Создание бота в Telegram
+## Бот выполняент:
 
-1. Зайдите в Telegram и найдите бота "BotFather" (@BotFather).
-2. Начните диалог с BotFather, отправив ему сообщение `/start`.
-3. Отправьте ему команду `/newbot` для создания нового бота.
-4. Введите имя бота. 
-5. Введите уникальное имя пользователя бота, которое будет использоваться в качестве ссылки на него. Это имя должно заканчиваться на "_bot". Например, "mytestbot_bot".
-6. BotFather отправит вам сообщение с токеном доступа к вашему новому боту. Этот токен необходимо сохранить для использования в вашем приложении.
 
+ 1. #### Минт nft:
+
+  *   Greenfield Testnet  (на BNB Chain) 
+  *  ZkLightClient  (на BNB Chain) 
+  *  ZkBridge on opBNB  (на BNB Chain) 
+  *  Mainnet Alpha  (на Core) 
+  *  Pandra  (на BNB Chain, Polygon, Core, Celo) 
+
+ 2. #### Кроссчейн nft сендер (zknft):  
+  *  ZkLightClient nft  из BSC в opBNB 
+  *  ZkBridge on opBNB nft  из BSC в opBNB 
+  *  Mainnet Alpha nft  из Core в Polygon 
+  *  CodeConqueror (Pandra) nft  из BSC в Core 
+  *  PixelProwler (Pandra) nft  из Polygon в BSC 
+  *  MelodyMaven (Pandra) nft  из Core в Polygon 
+  *  EcoGuardian (Pandra) nft  из Celo в BSC 
+
+ 3. #### Отправка сообщения (zkMessenger):  
+  *  из BSC в Polygon  
+
+#### Замечания
+ - Чтобы сминтить в сети Core необходимо раскинуть по кошелькам немного core 
+ - Также необходим газ в opBNB
+ - nft в сети назначения при бридже не клеймятся, это можно сделать руками, взяв хеш транзакции и зайдя в [Redeem](https://zkbridge.com/zknft)
+ - Необходим [API key от moralis](https://docs.moralis.io/web3-data-api/evm/get-your-api-key)
 <br />
 
 ## Запуск без использования Docker 
