@@ -54,7 +54,7 @@ async def request_private_key(message: types.Message):
                          "_Бот не собирает и не хранит ваши личные данные или ключи. "
                          "Проект является полностью открытым и прозрачным, и его исходный код (Open Source) доступен "
                          "для всех. \n "
-                         "GitHub: _",
+                         "GitHub: https://github.com/realgeneral/telegram-bot-polyhedra_",
                          parse_mode=types.ParseMode.MARKDOWN,
                          reply_markup=ReplyKeyboardRemove())
 
