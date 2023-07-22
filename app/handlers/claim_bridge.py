@@ -33,7 +33,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_zklight_bridge == -6:
         is_zklight_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(6)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 1/7")
@@ -49,7 +48,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_opbnb_bridge == -6:
         is_opbnb_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 2/7")
@@ -65,7 +63,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_core_bridge == -6:
         is_core_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(6)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 3/7")
@@ -81,7 +78,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_pandra_bsc_bridge == -6:
         is_pandra_bsc_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(5)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 4/7")
@@ -97,7 +93,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_pandra_pol_bridge == -6:
         is_pandra_pol_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(7)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 5/7")
@@ -113,7 +108,6 @@ async def claim_bridge(message: types.Message, state: FSMContext):
     elif is_pandra_core_bridge == -6:
         is_pandra_core_bridge = ["❌ Произошла ошибка", ""]
 
-    await asyncio.sleep(3)
     await bot.edit_message_text(chat_id=wait_1_message.chat.id,
                                 message_id=wait_1_message.message_id,
                                 text=f"⏳ Бридж nft 6/7")
