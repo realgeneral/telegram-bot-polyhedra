@@ -14,31 +14,19 @@ async def new_private_keys(message: types.Message, state: FSMContext):
                          "_Бот не собирает и не хранит ваши личные данные или ключи. "
                          "Проект является полностью открытым и прозрачным, и его исходный код (Open Source) доступен "
                          "для всех. \n "
-                         "GitHub: _",
+                         "GitHub: https://github.com/realgeneral/telegram-bot-polyhedra_",
                          parse_mode=types.ParseMode.MARKDOWN,
                          reply_markup=ReplyKeyboardRemove())
 
 
 @dp.message_handler(state=UserFollowing.new_private)
-async def request_API(message: types.Message, state: FSMContext):
+async def get_new_private_keys(message: types.Message, state: FSMContext):
     wait_message = await message.answer("⏳ Получаю private key...", reply_markup=ReplyKeyboardRemove())
     private_key = message.text.strip()
+
     await state.update_data(private_key=private_key)
     await bot.delete_message(chat_id=wait_message.chat.id,
                              message_id=wait_message.message_id)
-    await UserFollowing.new_api.set()
-    await message.answer("👝 <b>Предоставьте API key от moralis</b> \n\n"
-                         "<i><a href='https://docs.moralis.io/web3-data-api/evm/get-your-api-key'>Здесь</a> "
-                         "туториал как получить ключ</i>",
-                         parse_mode=types.ParseMode.HTML,
-                         reply_markup=types.ReplyKeyboardRemove())
-
-
-@dp.message_handler(state=UserFollowing.new_api)
-async def new_private_keys(message: types.Message, state: FSMContext):
-    api_key = message.text.strip()
-    await state.update_data(api_key=api_key)
-
     buttons = [
         KeyboardButton(text="⬅ Вернуться в меню"),
     ]
