@@ -19,6 +19,7 @@ async def send_menu(message: types.Message, state: FSMContext):
     private_key = data.get("private_key")
     api_key = data.get("api_key")
 
+    b0 = KeyboardButton("👝 Проверить баланс")
     b1 = KeyboardButton("💰 Заклеймить всё")
     b2 = KeyboardButton("⛏ Минт nft")
     b3 = KeyboardButton("📩 Отправка сообщения")
@@ -27,7 +28,7 @@ async def send_menu(message: types.Message, state: FSMContext):
     b6 = KeyboardButton("🔑 Проверить ключи")
 
     buttons = ReplyKeyboardMarkup(resize_keyboard=True)
-    buttons.row(b1, b2).row(b3, b4).row(b5, b6)
+    buttons.row(b0).row(b1, b2).row(b3, b4).row(b5, b6)
 
     await UserFollowing.choose_point.set()
     await message.answer(f"# Private key *{private_key[0:6]}...{private_key[-4:]}* \n"
