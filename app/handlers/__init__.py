@@ -6,5 +6,6 @@ from .claim_all import dp
 from .claim_bridge import dp
 from .claim_mint import dp
 from .claim_message import dp
+from .check_wallet import dp
 
 __all__ = ["dp"]
