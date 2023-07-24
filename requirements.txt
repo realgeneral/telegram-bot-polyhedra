@@ -3,3 +3,4 @@ web3~=6.6.1
 moralis~=0.1.37
 aiogram~=2.25.1
 asyncio~=3.4.3
+htppx~=0.24.1
