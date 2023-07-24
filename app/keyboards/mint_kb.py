@@ -1,4 +1,3 @@
-from aiogram import types
 from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 
 b1 = KeyboardButton("💰 Заминтить всё")
@@ -12,5 +11,5 @@ b8 = KeyboardButton("🔘 Pandra (на CORE)")
 b9 = KeyboardButton("🔘 Pandra (на CELO)")
 b10 = KeyboardButton("⬅ Вернуться в меню")
 
-buttons = ReplyKeyboardMarkup(resize_keyboard=True)
-buttons.row(b1).row(b2, b3).row(b4, b5).row(b6, b7).row(b8, b9).row(b10)
+mint_buttons = ReplyKeyboardMarkup(resize_keyboard=True)
+mint_buttons.row(b1).row(b2, b3).row(b4, b5).row(b6, b7).row(b8, b9).row(b10)
