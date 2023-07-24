@@ -3,7 +3,7 @@ from aiogram.types import KeyboardButton, ReplyKeyboardMarkup
 from aiogram.dispatcher.filters import Text
 from aiogram.dispatcher import FSMContext
 
-from app.create_bot import dp
+from app.create_bot import dp, bot
 from app.states import UserFollowing
 from app.utils import Balance
 
@@ -18,17 +18,34 @@ async def check_wallet_keys(message: types.Message, state: FSMContext):
     data = await state.get_data()
     private_key = data.get("private_key")
 
+    wait_1_message = await message.answer("⏳ Получаю информацию о кошельке 0%")
     bsc = Balance(private_key, 'bsc', "binancecoin")
     bsc_balance = await bsc.get_balance(url_bnb)
+
+    await bot.edit_message_text(chat_id=wait_1_message.chat.id,
+                                message_id=wait_1_message.message_id,
+                                text="⏳ Получаю информацию о кошельке 25%")
 
     polygon = Balance(private_key, 'polygon', "matic-network")
     polygon_balance = await polygon.get_balance(url_polygon)
 
+    await bot.edit_message_text(chat_id=wait_1_message.chat.id,
+                                message_id=wait_1_message.message_id,
+                                text="⏳ Получаю информацию о кошельке 50%")
+
     core = Balance(private_key, 'core', "core")
     core_balance = await core.get_balance(url_core)
 
+    await bot.edit_message_text(chat_id=wait_1_message.chat.id,
+                                message_id=wait_1_message.message_id,
+                                text="⏳ Получаю информацию о кошельке 75%")
+
     celo = Balance(private_key, 'celo', "celo")
     celo_balance = await celo.get_balance(url_celo)
+
+    await bot.edit_message_text(chat_id=wait_1_message.chat.id,
+                                message_id=wait_1_message.message_id,
+                                text="⏳ Получаю информацию о кошельке 100%")
 
     if bsc_balance == -6:
         bsc_balance_str = "❌ Произошла ошибка"
@@ -64,6 +81,8 @@ async def check_wallet_keys(message: types.Message, state: FSMContext):
     reply_markup = ReplyKeyboardMarkup(keyboard=[buttons],
                                        resize_keyboard=True)
 
+    await bot.delete_message(chat_id=wait_1_message.chat.id,
+                             message_id=wait_1_message.message_id)
     await UserFollowing.wallet_menu.set()
     await message.answer(f" 📊 <b> Баланс </b> \n\n"
                          f"<u>BNB</u>  = {bsc_balance_str}\n"
