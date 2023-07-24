@@ -43,6 +43,7 @@ class Minter:
                 try:
                     tx_receipt = self.web3.eth.get_transaction_receipt(raw_tx_hash)
                     if tx_receipt.status == 1:
+                        logger.error(f"{self.wallet_address}:{self.chain.upper()} - GET {self.nft_name}")
                         return "✅"
                     else:
                         logger.error(f"{self.wallet_address}:{self.chain.upper()} - произошла ошибка")
