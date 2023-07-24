@@ -42,6 +42,7 @@ class Bridger:
 
                 result = evm_api.nft.get_wallet_nfts(api_key=api_key, params=params)
                 id = int(result['result'][0]['token_id'])
+
                 if id:
                     return id
             except Exception as err:
@@ -56,8 +57,11 @@ class Bridger:
             web3 = Web3(Web3.HTTPProvider(rpcs["core"]))
             contract = web3.eth.contract(address=nft_address, abi=Bridger.nft_abi)
             balance = contract.functions.balanceOf(wallet_address).call()
+
             if balance > 0:
                 totalSupply = contract.functions.totalSupply().call()
+                if len(contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 5000, totalSupply).call()) == 0 :
+                    raise ValueError("nft not found")
                 id = contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 5000, totalSupply).call()[0]
                 return id
             else:
@@ -68,6 +72,9 @@ class Bridger:
             balance = contract.functions.balanceOf(wallet_address).call()
             if balance > 0:
                 totalSupply = contract.functions.totalSupply().call()
+
+                if len(contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 10000, totalSupply).call()) == 0:
+                    raise ValueError("nft not found")
                 id = contract.functions.tokensOfOwnerIn(wallet_address, totalSupply - 10000, totalSupply).call()[0]
                 return id
             else:
