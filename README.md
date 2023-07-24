@@ -2,6 +2,13 @@
  
 <br />
 
+## Contributors
+
+- Web3 module ([@zemetsskiy](https://github.com/zemetsskiy))
+- Telegram bot integration ([@realgeneral](https://github.com/realgeneral))
+  
+<br />
+
 ## Бот выполняет:
 
 
