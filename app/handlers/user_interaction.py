@@ -21,9 +21,8 @@ async def start_cmd(message: types.Message):
 
     await UserFollowing.start_navigation.set()
     await message.answer("Приветствую вас в <b>Polyhedra Automatization</b> ! 🤖👋 \n\n"
-                         ""
-                         "Бот выполняент:\n\n"
-                         ""
+                         "📍 Рекомендую ознакомиться с <a href='https://t.me/trioinweb3/13'>гайдом</a> 📍\n\n"
+                         "Бот выполняент:\n"
                          "<u> 1. Минт nft: </u> \n"
                          "  🔘 <i> Greenfield Testnet </i> (на BNB Chain) \n"
                          "  🔘 <i> ZkLightClient </i> (на BNB Chain) \n"
